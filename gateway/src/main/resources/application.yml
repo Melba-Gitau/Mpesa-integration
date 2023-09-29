@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+eureka:
+  instance:
+    hostname: localhost
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: first-microservice
+          uri: lb://BUILDING-SERVICE/
+          predicates:
+            - Path=/building/**
+        - id: second-microservice
+          uri: lb://UNIT-SERVICE/
+          predicates:
+            - Path=/unit/**
+        - id: third-microservice
+          uri: lb://TENANT-SERVICE/
+          predicates:
+            - Path=/tenant/**
